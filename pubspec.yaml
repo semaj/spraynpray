@@ -1,0 +1,21 @@
+name: sunflower
+version: 0.0.1
+description: A minimal command-line application.
+#author: <your name> <email@example.com>
+#homepage: https://www.example.com
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+#dependencies:
+#  foo_bar: '>=1.0.0 <2.0.0'
+dependencies:
+   http: ">=0.11.2 <0.12.0"
+   browser: any
+   oauth2: ">=0.9.3 <0.10.0"
+   polymer: ">=0.16.3+2 <0.17.0"
+dev_dependencies:
+  unittest: any
+transformers:
+- polymer:
+    entry_points: 
+    - web/index.html
+    - web/test.html

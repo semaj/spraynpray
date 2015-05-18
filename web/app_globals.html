@@ -1,0 +1,25 @@
+<link rel="import" href="packages/polymer/polymer.html">
+
+<polymer-element name="app-globals">
+  <template>
+  </template>
+  <script type="application/dart">
+  import 'package:polymer/polymer.dart';
+  import 'dart:async';
+
+  @CustomTag('app-globals')
+  class AppGlobals extends PolymerElement {
+    static final ObservableMap _staticValues = toObservable({});
+
+    Map get values => _staticValues;
+
+    AppGlobals.created() : super.created();
+
+    ready() {
+      attributes.keys.forEach((k) {
+        values[k] = attributes[k];
+      });
+    }
+  }
+  </script>
+</polymer-element>

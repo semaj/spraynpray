@@ -1,0 +1,52 @@
+
+<link rel="import" href="packages/polymer/polymer.html">
+<polymer-element name="authorize-button">
+  <style>
+    .heading {
+      font-family: Helvetica;
+      font-weight: 100;
+      text-align: center;
+    }
+    .big {
+      font-size: 2em;
+    }
+    .button {
+      margin-right: auto;
+      font-family: Helvetica;
+      font-weight: 100;
+      margin-left: auto;
+      background-color: #33B1FF;
+      text-align: center;
+      padding-top: 1em;
+      height: 2em;
+      width: 7em;
+      color: white;
+      font-size: 2em;
+    }
+  </style>
+  <template>
+    <div class="heading big">SPRAY N PRAY</div>
+    <br>
+    <div class="heading">Buy a diversified set of alt-coins with the click of one button!</div>
+    <br>
+    <div class="button" on-click="{{move}}">Authorize</div>
+    </template>
+  <script type="application/dart">
+  import 'dart:html';
+  import 'dart:async';
+  import 'package:polymer/polymer.dart';
+
+  @CustomTag('authorize-button')
+  class AuthorizeButton extends PolymerElement {
+    AuthorizeButton.created() : super.created();
+    
+    void move(Event e, var detail, Node target) {
+      final String redirectUrl = "https://bcubntmrdr.localtunnel.me/test.html";
+      final String identifier = "46f99a212f7cafc94e9285fdd3111bcba269bf0289c5ee8cef963e32c44858ed";
+      final String secret = "7ed7f5263fe4d6efb44b487c7b390a38f6da272eec531edd07c23b7008c15aa8";
+      String authorizationEndpoint = "https://sandbox.coinbase.com/oauth/authorize?response_type=code&client_id=${identifier}&redirect_uri=${redirectUrl}&scope=balance";
+      window.location.assign(authorizationEndpoint);
+    }
+  }
+  </script>
+</polymer-element>

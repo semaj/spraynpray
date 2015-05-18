@@ -1,0 +1,19 @@
+
+<link rel="import" href="packages/polymer/polymer.html">
+<polymer-element name="buy-button">
+  <template>
+    <p> ahhh {{$["globals"].values["accessToken"}}]</p>
+    <app-globals id="globals"></app-globals> 
+    </template>
+    
+  <script type="application/dart">
+  import 'dart:html';
+  import 'dart:async';
+  import 'package:polymer/polymer.dart';
+
+  @CustomTag('buy-button')
+  class BuyButton extends PolymerElement {
+    BuyButton.created() : super.created();
+  }
+  </script>
+</polymer-element>
