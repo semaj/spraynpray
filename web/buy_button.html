@@ -1,19 +1,62 @@
 
 <link rel="import" href="packages/polymer/polymer.html">
 <polymer-element name="buy-button">
+<style>
+    .button {
+      margin-right: auto;
+      font-family: Helvetica;
+      font-weight: 100;
+      margin-left: auto;
+      background-color: #33B1FF;
+      text-align: center;
+      padding-top: 1em;
+      height: 2em;
+      width: 7em;
+      color: white;
+      font-size: 2em;
+    }
+</style>
   <template>
-    <p> ahhh {{$["globals"].values["accessToken"}}]</p>
+    <div class="button" on-click="{{buy}}">Buy!</div>
     <app-globals id="globals"></app-globals> 
     </template>
     
   <script type="application/dart">
   import 'dart:html';
+  import 'dart:convert';
   import 'dart:async';
+  import 'package:http/browser_client.dart';
   import 'package:polymer/polymer.dart';
 
   @CustomTag('buy-button')
   class BuyButton extends PolymerElement {
     BuyButton.created() : super.created();
+    final BrowserClient client = new BrowserClient();
+    
+    ready() {
+
+     final String identifier = "46f99a212f7cafc94e9285fdd3111bcba269bf0289c5ee8cef963e32c44858ed";
+       final String secret = "7ed7f5263fe4d6efb44b487c7b390a38f6da272eec531edd07c23b7008c15aa8";
+       final String redirectUrl = "https://axvjrgdmzg.localtunnel.me/test.html";
+//  window.location.assign(redirectUrl);
+       String code = Uri.parse(window.location.toString()).queryParameters['code'];
+       
+       client.post("https://oewylatzgv.localtunnel.me/token?grant_type=authorization_code&code=${code}&redirect_uri=${redirectUrl}&client_id=${identifier}&client_secret=${secret}").then((response) {
+         print(response.body);
+         $["globals"].values["accessToken"] = response.body;
+       }); 
+    }
+    
+    buy(Event e, var detail, Node target) {
+      String accessToken = $["globals"].values["accessToken"];
+      print("accesstoken: ${accessToken}");
+      client.post("https://oewylatzgv.localtunnel.me/buys?token=${accessToken}",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.encode({ "qty": "5", "currency": "USD" })).then((response) {
+        print("response");
+        print(response.body);
+      });
+    }
   }
   </script>
 </polymer-element>
